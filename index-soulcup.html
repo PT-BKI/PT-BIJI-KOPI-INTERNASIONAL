@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soulcup Coffee - Premium To-Go Coffee Bar</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
+    <link rel="icon" type="image/png" href="./media/sclogo.png">
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-gold: #D4AF37;
+            --color-dark: #2C1810;
+            --color-white: #FFFFFF;
+            --primary-dark: #1A1A1A;
+            --primary-light: #FFFFFF;
+            --accent-gold: #D4AF37;
+            --accent-coffee: #5D4037;
+            --accent-cream: #F5F5DC;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 8rem;
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--primary-light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-coffee);
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-lg);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--accent-gold);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            background: url('./media/Cappuccino\ and\ Espresso\ on\ Concrete.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5); /* overlay hitam */
+            z-index: 1;
+        }
+
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--accent-coffee);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background: var(--accent-gold);
+            color: var(--primary-light);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--accent-gold);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: var(--spacing-xl) 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: var(--accent-coffee);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Our Story */
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .story-content h3 {
+            font-size: 2rem;
+            color: var(--accent-coffee);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .story-content p {
+            text-align: justify;
+        }
+
+        /* Our Concepts */
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .concept-card {
+            background: var(--primary-light);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .concept-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .concept-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--spacing-md);
+            background: var(--accent-cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent-gold);
+        }
+
+        /* Our Stores */
+        .stores-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr); /* bikin 5 kolom */
+            gap: var(--spacing-md);
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        .store-card {
+            background: var(--primary-light);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .store-info h3, p, a {
+            text-decoration: none;
+            color: var(--primary-dark);
+        }
+
+        .store-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .store-image {
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .store-info {
+            padding: var(--spacing-md);
+        }
+
+        /* Our Products */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* bikin 5 kolom */
+            gap: var(--spacing-md);
+        }
+
+        .product-card {
+            background: var(--primary-light);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .product-card a {
+            text-decoration: none;
+        }
+
+        .product-card p {
+            color: var(--accent-coffee);
+        }
+
+        .product-card h3 {
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 200px;
+            overflow: hidden;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .product-info {
+            padding: var(--spacing-md);
+            text-align: left;
+        }
+
+        .price {
+            display: inline-block;
+            color: var(--primary-light);
+            font-weight: 600;
+            font-size: 1.2rem;
+            text-decoration: none;
+            background-color: var(--accent-gold);
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            transition: all 0.2s ease;
+            margin-bottom: 0;
+        }
+
+        .price:hover {
+            transform: scale(1.1);
+            color: var(--accent-gold);
+            background-color: var(--primary-light);
+            text-shadow: 2px 2px 4px rgba(255, 230, 0, 0.4);
+        }
+
+        .price{
+            color: var(--primary-light);
+        }
+
+        .product-info p {
+            margin-bottom: 15px;
+        }
+
+        /* Values & Purpose */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .value-item {
+            text-align: center;
+            padding: var(--spacing-md);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover {
+            transform: scale(1.1);
+        }
+
+        .value-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* Target Audience */
+        .target-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Closing Section */
+        .closing-section {
+            background: linear-gradient(135deg, var(--accent-coffee) 0%, var(--primary-dark) 100%);
+            color: var(--primary-light);
+            text-align: center;
+            padding: var(--spacing-xl) 0;
+        }
+
+        .closing-section h2 {
+            color: var(--primary-light);
+        }
+
+        .footer {
+  background: #1d1d1b; /* hitam pekat elegan */
+  color: #fff;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.footer h2 {
+  color: #8b5e3c; /* coklat kopi */
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.footer .tagline {
+  font-size: 14px;
+  margin-bottom: 25px;
+  color: #ddd;
+}
+
+.footer .social-icons {
+  margin-bottom: 25px;
+}
+
+.footer .social-icons a {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin: 0 10px;
+  line-height: 40px;
+  border-radius: 50%;
+  background: #333;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.footer .social-icons a:hover {
+  background: #8b5e3c;
+  transform: scale(1.1);
+}
+
+.footer .copy {
+  font-size: 12px;
+  color: #aaa;
+}
+
+@media (max-width: 600px) {
+  .footer h2 {
+    font-size: 18px;
+  }
+
+  .footer .tagline {
+    font-size: 12px;
+  }
+
+  .footer .social-icons a {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 12px;
+  }
+}
+
+
+        .target-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .target-group {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(44, 24, 16, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .target-group:hover {
+            transform: translateY(-10px);
+        }
+
+        .target-icon {
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .target-name {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--primary-dark);
+        }
+
+        /* Burger Button */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 1101; /* biar di atas nav */
+  right: 0;
+  margin-left: auto;
+}
+
+.burger span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: var(--accent-coffee);
+  border-radius: 3px;
+  transition: 0.3s;
+}
+
+/* Animasi garis jadi X */
+.burger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile nav */
+@media (max-width: 768px) {
+  .burger {
+    display: flex;
+    right: 0;
+  }
+
+  nav ul {
+    position: absolute;
+    top: 70px; /* tinggi header */
+    right: 20px;
+    background: white;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  nav ul.show {
+    max-height: 500px;
+    opacity: 1;
+  }
+
+  .stores-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr); /* bikin 5 kolom */
+            gap: var(--spacing-md);
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 0;
+        }
+
+        .store-image {
+            height: auto;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        .store-info {
+            padding: var(--spacing-md);
+        }
+}
+
+
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .story-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); /* bikin 5 kolom */
+                gap: var(--spacing-md);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 0 var(--spacing-sm);
+            }
+
+            .stores-grid {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr); /* bikin 5 kolom */
+                gap: var(--spacing-md);
+            }
+            .products-grid {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr); /* bikin 5 kolom */
+                gap: var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">Soulcup<span>Coffee</span></div>
+      
+            <!-- Burger button -->
+            <div class="burger" id="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+      
+            <nav>
+                <ul>
+                    <li><a href="#our-story">Our Story</a></li>
+                    <li><a href="#our-concepts">Concepts</a></li>
+                    <li><a href="#our-stores">Stores</a></li>
+                    <li><a href="#our-products">Products</a></li>
+                    <li><a href="#our-purpose">Value</a></li>
+                </ul>
+            </nav>
+        </div>
+      </header>
+      
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Soulcup Coffee</h1>
+            <p>Where every cup tells a story, and every moment becomes a cherished memory. Experience the art of premium to-go coffee.</p>
+            <a href="#our-story" class="cta-button">Discover Our Story</a>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section id="our-story" class="our-story">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Story</h2>
+                <p>The journey of Soulcup Coffee began with a simple passion for perfect coffee moments</p>
+            </div>
+            <div class="story-grid">
+                <div class="story-content">
+                    <h3>From Passion to Perfection</h3>
+                    <p>Soulcup Coffee adalah gerai kopi yang mengutamakan keramahan dan profesionalitas, dengan barista terlatih untuk sigap melayani kebutuhan pelanggan. Menggunakan bahan premium, Soulcup menyajikan beragam minuman berbasis kopi, non-kopi, hingga minuman blender, serta camilan pendamping. Dengan visi memberikan pelayanan ramah, menjaga kualitas, dan menjadi pilihan utama sebelum beraktivitas, Soulcup berkomitmen untuk terus berinovasi, melatih barista agar semakin baik, serta memperluas gerai agar dapat dijangkau lebih banyak orang.</p>
+                </div>
+                <div class="story-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/bb166f50-b832-4527-926b-87a05e6a4bf7.png" alt="Modern coffee bar interior with minimalist design, warm lighting, and baristas preparing artisanal coffee" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Concepts -->
+    <section id="our-concepts" class="our-concepts">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Concepts</h2>
+                <p>Innovative approaches that redefine the coffee-to-go experience</p>
+            </div>
+            <div class="concepts-grid">
+                <div class="concept-card">
+                    <div class="concept-icon">☕︎</div>
+                    <h3>To-Go Bar</h3>
+                    <p>Soulcup Coffee menghadirkan konsep Coffee To Go bar dengan desain fleksibel tanpa mengurangi estetika dasar.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-icon">🏪</div>
+                    <h3>Fasilitas Gerai</h3>
+                    <p>Setiap gerai dilengkapi bar utama serta dua set meja dan kursi sebagai paket standar.</p>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-icon">🤝</div>
+                    <h3>Kerja Sama</h3>
+                    <p>Kami juga terbuka untuk diskusi perubahan desain dan kerja sama dalam pengembangan gerai maupun produk.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Stores -->
+     
+    <section id="our-stores" class="our-stores">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Stores</h2>
+                <p>Experience our minimalist aesthetic and premium service at these locations</p>
+            </div>
+            <div class="stores-grid">
+                <div class="store-card">
+                    <a href="https://share.google/O99iEG9pLen4XXiC1">
+                        <div class="store-image">
+                            <img src="./media/new one.png" alt="Soulcup Coffee urban kiosk with modern design and efficient service counter in a bustling city location" />
+                        </div>
+                        <div class="store-info">
+                            <h3>BSD City Tangerang</h3>
+                            <p style="margin: 10px 0;">Foresta Business Loft 3, Lengkong Kulon, Kec. Pagedangan, Kabupaten Tangerang, Banten 15331</p>
+                            <p>Buka: Senin – Sabtu, 09.00 – 18.00</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Products -->
+    <section id="our-products" class="our-products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Products</h2>
+                <p>Curated selection of premium coffee and specialty beverages</p>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <a href="https://gofood.co.id/jakarta/restaurant/soulcup-coffee-serpong-ecfcd5da-fd44-41be-8692-0d632004d754">
+                        <div class="product-image">
+                            <img src="./media/kopi2.png" alt="Cold brew coffee in a sleek transparent bottle with ice cubes and citrus garnish" />
+                        </div>
+                        <div class="product-info">
+                            <h3>ESPRESSO BASED</h3>
+                            <p>Kopi klasik pekat dengan cita rasa.</p>
+                            <a href="https://gofood.co.id/jakarta/restaurant/soulcup-coffee-serpong-ecfcd5da-fd44-41be-8692-0d632004d754" target="_blank" class="price" >See More</a>
+                        </div>
+                    </a>
+                </div>
+                <div class="product-card">
+                    <a href="https://gofood.co.id/jakarta/restaurant/soulcup-coffee-serpong-ecfcd5da-fd44-41be-8692-0d632004d754">
+                        <div class="product-image">
+                            <img src="./media/tea.png" alt="Specialty matcha latte in an elegant cup with vibrant green color and delicate foam art" />
+                        </div>
+                        <div class="product-info">
+                            <h3>TEAS</h3>
+                            <p>Teh pilihan yang meredakan dahaga.</p>
+                            <a href="https://gofood.co.id/jakarta/restaurant/soulcup-coffee-serpong-ecfcd5da-fd44-41be-8692-0d632004d754" target="_blank" class="price" >See More</a>
+                        </div>
+                    </a>
+                </div>
+                <div class="product-card">
+                    <a href="https://gofood.co.id/jakarta/restaurant/soulcup-coffee-serpong-ecfcd5da-fd44-41be-8692-0d632004d754">
+                        <div class="product-image">
+                            <img src="./media/noncoffee.png" alt="Signature Soulcup espresso in a minimalist white cup with perfect crema and delicate latte art" />
+                        </div>
+                        <div class="product-info">
+                            <h3>NON-COFFEE</h3>
+                            <p>Minuman segar nikmat tanpa kandungan kopi.</p>
+                            <a href="https://gofood.co.id/jakarta/restaurant/soulcup-coffee-serpong-ecfcd5da-fd44-41be-8692-0d632004d754" target="_blank" class="price" >See More</a>
+                        </div>
+                    </a>
+                </div>
+                <div class="product-card">
+                    <a href="https://gofood.co.id/jakarta/restaurant/soulcup-coffee-serpong-ecfcd5da-fd44-41be-8692-0d632004d754">
+                        <div class="product-image">
+                            <img src="./media/kopipaker.png" alt="Signature Soulcup espresso in a minimalist white cup with perfect crema and delicate latte art" />
+                        </div>
+                        <div class="product-info">
+                            <h3>ECONOMY PACK</h3>
+                            <p>Paket hemat berkualitas untuk semua kalangan.</p>
+                            <a href="https://gofood.co.id/jakarta/restaurant/soulcup-coffee-serpong-ecfcd5da-fd44-41be-8692-0d632004d754" target="_blank" class="price" >See More</a>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Value -->
+    <section id="our-value" class="our-value">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Purpose</h2>
+                <p>More than just coffee – we're here to elevate everyday moments</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-item">
+                    <div class="value-number">01</div>
+                    <h3>Ekspansi Gerai</h3>
+                    <p>Kami berencana membuka banyak gerai baru untuk menjangkau pelanggan luas.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-number">02</div>
+                    <h3>Barista Profesional</h3>
+                    <p>Kami melatih barista berpengetahuan luas agar pelayanan selalu ramah dan profesional.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-number">03</div>
+                    <h3>Produk Berkualtas</h3>
+                    <p>Kami menghadirkan produk premium bervariasi dengan kualitas terbaik bagi pelanggan.</p>
+                </div>
+                <div class="value-item">
+                    <div class="value-number">04</div>
+                    <h3>Inovasi & Kolaborasi</h3>
+                    <p>Kami terus berinovasi dan terbuka untuk ide kreatif serta kerja sama.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Purpose -->
+    <section id="our-purpose" class="our-purpose">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Value</h2>
+                <p>The principles that guide every cup we serve and every customer we welcome</p>
+            </div>
+            <div class="story-grid">
+                <div class="story-image">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/96807146-c3c0-4e9f-bb0c-cfe09893bfc9.png" alt="Group of young professionals enjoying Soulcup coffee during a break in a modern urban setting" />
+                </div>
+                <div class="story-content">
+                    <h3>Nilai Jual Kami</h3>
+                    <p>Soulcup Coffee adalah rintisan usaha di bawah PT. Biji Kopi Internasional yang berfokus pada pengembangan biji kopi dengan bahan baku premium hasil produksi sendiri. Kami menghadirkan produk utama berupa Frappe Beverages atau minuman blender yang digemari banyak orang, dengan kualitas rasa setara merek lain namun harga lebih terjangkau, sehingga dapat dinikmati oleh berbagai kalangan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Target -->
+    <!-- Our Target -->
+        <section id="our-target" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Target</h2>
+                    <p>Designed for the modern urban lifestyle</p>
+                </div>
+                <div class="target-grid">
+                    <div class="target-group">
+                        <div class="target-icon">💼</div>
+                        <h3 class="target-name">Young Professionals</h3>
+                        <p>Urban millennials yang menghargai quality dan convenience</p>
+                    </div>
+                    <div class="target-group">
+                        <div class="target-icon">🎓</div>
+                        <h3 class="target-name">Students & Creatives</h3>
+                        <p>Generasi muda yang mencari inspirasi dan productive space</p>
+                    </div>
+                    <div class="target-group">
+                        <div class="target-icon">👨‍👩‍👧</div>
+                        <h3 class="target-name">Coffee Enthusiasts</h3>
+                        <p>Para penikmat kopi yang appreciates craftsmanship</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    <!-- Closing Statement -->
+    <footer class="footer">
+        <h2>Soulcup Coffee</h2>
+        <p class="tagline">Premium coffee for the modern soul</p>
+      
+        <div class="social-icons">
+            <a href="https://gofood.co.id/jakarta/restaurant/soulcup-coffee-serpong-ecfcd5da-fd44-41be-8692-0d632004d754" class="social-link"><i class="fa-solid fa-utensils"></i></a>
+            <a href="https://linktr.ee/soulcup.coffee?fbclid=PAZXh0bgNhZW0CMTEAAac3Bh5TmcAU4P-msGHBeEkDJ-vya4aku56GBNQdNuPHFjjkHnJ3svzNTjZkuA_aem_uGItRRkNbla2XiqC65UsVQ" class="social-link"><i class="fa-brands fa-linktree"></i></a>
+            <a href="https://www.instagram.com/soulcup.coffee" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+          </div>
+          
+        <p class="copy">© 2025 SoulCup Coffee. All rights reserved.</p>
+      </footer>
+
+
+    <script>
+        // Scroll reveal animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Smooth scroll for navigation
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                });
+            });
+            // Burger menu toggle
+const burger = document.getElementById('burger');
+const navMenu = document.querySelector('nav ul');
+
+burger.addEventListener('click', () => {
+  burger.classList.toggle('active');
+  navMenu.classList.toggle('show');
+});
+
+        });
+    </script>
+</body>
+</html>
+
